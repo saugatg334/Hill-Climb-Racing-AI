@@ -13,7 +13,7 @@ class App {
 
     async init() {
         // Initialize CrazyGames SDK
-        this.initCrazyGamesSDK();
+        await this.initCrazyGamesSDK();
         
         // Show loading screen
         await this.loadGame();
@@ -25,15 +25,30 @@ class App {
         this.showScreen('main-menu');
     }
 
-    initCrazyGamesSDK() {
-        if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) {
-            if (typeof CrazyGames.SDK.game.loadingStart === 'function') {
-                CrazyGames.SDK.game.loadingStart();
+    async initCrazyGamesSDK() {
+        // Wait for SDK to be available
+        let attempts = 0;
+        const maxAttempts = 50; // 5 seconds max wait
+        
+        while (attempts < maxAttempts) {
+            if (window.CrazyGames && window.CrazyGames.SDK && window.CrazyGames.SDK.game) {
+                try {
+                    if (typeof window.CrazyGames.SDK.game.loadingStart === 'function') {
+                        window.CrazyGames.SDK.game.loadingStart();
+                        console.log('CrazyGames SDK initialized successfully');
+                    }
+                    return;
+                } catch (error) {
+                    console.warn('Error calling CrazyGames SDK loadingStart:', error);
+                    return;
+                }
             }
-            console.log('CrazyGames SDK initialized');
-        } else {
-            console.warn('CrazyGames SDK not available');
+            
+            attempts++;
+            await new Promise(resolve => setTimeout(resolve, 100));
         }
+        
+        console.warn('CrazyGames SDK not available after waiting');
     }
 
     async loadGame() {
@@ -58,9 +73,13 @@ class App {
         }
 
         // Notify CrazyGames that loading is finished
-        if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) {
-            if (typeof CrazyGames.SDK.game.loadingFinished === 'function') {
-                CrazyGames.SDK.game.loadingFinished();
+        if (window.CrazyGames && window.CrazyGames.SDK && window.CrazyGames.SDK.game) {
+            try {
+                if (typeof window.CrazyGames.SDK.game.loadingFinished === 'function') {
+                    window.CrazyGames.SDK.game.loadingFinished();
+                }
+            } catch (error) {
+                console.warn('Error calling CrazyGames SDK loadingFinished:', error);
             }
         }
     }
