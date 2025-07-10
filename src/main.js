@@ -27,7 +27,9 @@ class App {
 
     initCrazyGamesSDK() {
         if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) {
-            CrazyGames.SDK.game.loadingStart();
+            if (typeof CrazyGames.SDK.game.loadingStart === 'function') {
+                CrazyGames.SDK.game.loadingStart();
+            }
             console.log('CrazyGames SDK initialized');
         } else {
             console.warn('CrazyGames SDK not available');
@@ -57,7 +59,9 @@ class App {
 
         // Notify CrazyGames that loading is finished
         if (window.CrazyGames && CrazyGames.SDK && CrazyGames.SDK.game) {
-            CrazyGames.SDK.game.loadingFinished();
+            if (typeof CrazyGames.SDK.game.loadingFinished === 'function') {
+                CrazyGames.SDK.game.loadingFinished();
+            }
         }
     }
 
