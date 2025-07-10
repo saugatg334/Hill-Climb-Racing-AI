@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hill Climb Racing AI - Nepal Edition</title>
+    <script src="https://sdk.crazygames.com/crazygames-sdk-v2.js"></script>
+  <script type="module" crossorigin src="/assets/index-S1MBzfg_.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BF8uv-MD.css">
+</head>
+<body>
+    <div id="app">
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <h1>🏔️ Hill Climb Racing AI</h1>
+                <p>Nepal Edition</p>
+                <div class="loading-bar">
+                    <div class="loading-progress" id="loading-progress"></div>
+                </div>
+                <p id="loading-text">Loading game assets...</p>
+            </div>
+        </div>
+
+        <div id="main-menu" class="screen hidden">
+            <div class="menu-container">
+                <h1 class="game-title">🏔️ Hill Climb Racing AI</h1>
+                <p class="subtitle">Nepal Edition</p>
+                
+                <div class="menu-buttons">
+                    <button class="menu-btn primary" id="start-ai-btn">
+                        🤖 Start AI Training
+                    </button>
+                    <button class="menu-btn" id="play-human-btn">
+                        🎮 Play as Human
+                    </button>
+                    <button class="menu-btn" id="vehicles-btn">
+                        🚗 Vehicles (31)
+                    </button>
+                    <button class="menu-btn" id="stages-btn">
+                        🌍 Stages (31)
+                    </button>
+                    <button class="menu-btn" id="settings-btn">
+                        ⚙️ Settings
+                    </button>
+                </div>
+
+                <div class="stats-panel">
+                    <div class="stat">
+                        <span class="stat-label">Best Score:</span>
+                        <span class="stat-value" id="best-score">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Generation:</span>
+                        <span class="stat-value" id="generation">1</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Species:</span>
+                        <span class="stat-value" id="species-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="vehicles-screen" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-btn" id="vehicles-back">← Back</button>
+                <h2>🚗 Vehicle Selection</h2>
+            </div>
+            <div class="vehicles-grid" id="vehicles-grid">
+                <!-- Vehicles will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div id="stages-screen" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-btn" id="stages-back">← Back</button>
+                <h2>🌍 Stage Selection</h2>
+            </div>
+            <div class="stages-grid" id="stages-grid">
+                <!-- Stages will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen hidden">
+            <div class="game-ui">
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Score:</span>
+                        <span class="stat-value" id="current-score">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Generation:</span>
+                        <span class="stat-value" id="current-gen">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Alive:</span>
+                        <span class="stat-value" id="alive-count">0</span>
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <button class="control-btn" id="pause-btn">⏸️ Pause</button>
+                    <button class="control-btn" id="speed-btn">⚡ Speed: 1x</button>
+                    <button class="control-btn" id="best-btn">👑 Show Best</button>
+                    <button class="control-btn" id="menu-btn">🏠 Menu</button>
+                </div>
+            </div>
+            
+            <canvas id="game-canvas"></canvas>
+            
+            <div class="neural-network-panel" id="nn-panel">
+                <h3>🧠 Neural Network</h3>
+                <canvas id="nn-canvas" width="400" height="300"></canvas>
+            </div>
+        </div>
+
+        <div id="settings-screen" class="screen hidden">
+            <div class="screen-header">
+                <button class="back-btn" id="settings-back">← Back</button>
+                <h2>⚙️ Settings</h2>
+            </div>
+            <div class="settings-content">
+                <div class="setting-group">
+                    <label for="population-size">Population Size:</label>
+                    <input type="range" id="population-size" min="50" max="500" value="150" step="50">
+                    <span id="population-value">150</span>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="mutation-rate">Mutation Rate:</label>
+                    <input type="range" id="mutation-rate" min="0.01" max="0.1" value="0.05" step="0.01">
+                    <span id="mutation-value">0.05</span>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="show-neural-network">Show Neural Network:</label>
+                    <input type="checkbox" id="show-neural-network" checked>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="game-speed">Game Speed:</label>
+                    <input type="range" id="game-speed" min="0.5" max="5" value="1" step="0.5">
+                    <span id="speed-value">1x</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
